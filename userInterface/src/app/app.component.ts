@@ -9,8 +9,21 @@ import { HttpService } from './http.service';
 })
 export class AppComponent {
   title = 'app';
+  tasks = [];
 
   constructor(private _httpService: HttpService){
 
+  }
+
+  ngOnInit(){
+  	this.tasksFromService();
+  }
+
+  tasksFromService(){
+  	let observable = this._httpService.getTasks();
+  	observable.subscribe(data =>{
+  		console.log("Got our data!",data)
+  		this.tasks = data['tasks'];
+  	})
   }
 }
