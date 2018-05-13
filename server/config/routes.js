@@ -12,6 +12,7 @@ module.exports = function(app){
 	})
 
 	app.post('/tasks', function(req, res){
+		console.log(req)
 		Task.add(req, res)
 	})
 

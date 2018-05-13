@@ -11,9 +11,11 @@ export class AppComponent {
   title = 'app';
   tasks = [];
   focusedTask = {};
+  newTask : any;
+  message : any;
 
   constructor(private _httpService: HttpService){
-
+  	this.newTask = {title:"", description:""}
   }
 
   ngOnInit(){
@@ -33,6 +35,32 @@ export class AppComponent {
   			this.focusedTask = task;
   		}
   	}
+  }
+
+  createTask(){
+  	console.log(this.newTask)
+  	let observable = this._httpService.createTask(this.newTask);
+  	observable.subscribe(data =>{
+  		console.log(data)
+  		this.tasksFromService();
+  		this.newTask = {title:"", description:""}
+  	})
+  }
+
+  deleteTask(id){
+  	let observable = this._httpService.deleteTask(id);
+  	observable.subscribe(data =>{
+  		console.log(data)
+  		this.tasksFromService();
+  	})
+  }
+
+  updateTask(id){
+  	let observable = this._httpService.updateTask(id, this.focusedTask);
+  	observable.subscribe(data =>{
+  		console.log(data);
+  		this.tasksFromService();
+  	})
   }
 
   isEmpty(obj) {

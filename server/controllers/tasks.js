@@ -23,7 +23,7 @@ module.exports = {
 	},
 
 	add : function(req, res){
-		console.log(req.body)
+		console.log(req)
 		var task = new Task({title : req.body.title, description : req.body.description})
 		task.save(function(err){
 			if(err){
@@ -36,7 +36,7 @@ module.exports = {
 	},
 
 	update : function(req, res){
-		Task.update({_id : req.params.id}, {$set : {completed : req.body.completed}}, function(err){
+		Task.update({_id : req.params.id}, {$set : {description : req.body.description, completed : req.body.completed}}, function(err){
 			if(err){
 				console.log(err)
 				res.json({success:false})

@@ -1,19 +1,60 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div>
-  <h3>Current Tasks</h3>
-  <button (click)='tasksFromService()'>
-    Get Tasks
-  </button>
-  <div *ngFor='let task of tasks'>
-    <h4>{{task.title}}</h4>
-    <button (click)='focusTask(task._id)'>
-      Get Details
-    </button>
+<div class='container-fluid'>
+  <div class="row">
+    <div class="col-sm-12">
+      <h3>New Task</h3>
+      <br>
+      <form (submit)="createTask()">
+        <div class="row">
+          <div class="col-sm-2 label">Task</div>
+          <div class="col-sm-3"><input type="text" name="newTask.title" [(ngModel)]="newTask.title"></div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-sm-2 label">Description</div>
+          <div class="col-sm-3"><input type="text" name="newTask.description" [(ngModel)]="newTask.description"></div>
+          <div class="col-sm-1"></div>
+          <div class="col-sm-1"><input type="submit" value="Add Task"></div>
+        </div>
+      </form>
+      <hr>
+    </div>
   </div>
-  <ul *ngIf='!isEmpty(focusedTask)'>
-    <li>Description: {{focusedTask.description}}</li>
-    <li>Created at: {{focusedTask.created_at}}</li>
-    <li>Completed: <span *ngIf='focusedTask.completed'>Yes</span><span *ngIf='!focusedTask.completed'>No</span></li>
-  </ul>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6">
+        <h3>Current Tasks</h3>
+        <div class="row task" *ngFor='let task of tasks'>
+          <div class="col-sm-9">
+            <div class="row"><h5>{{task.title}}</h5></div>
+            <div class="row"><h6>{{task.description}}</h6></div>
+          </div>
+          <div class="col-sm-3">
+            <div class="row"><button class="task-button" (click)='focusTask(task._id)'>Details</button></div>
+            <div class="row"><button class="task-button" (click)='deleteTask(task._id)'>Delete</button></div>
+          </div>
+        </div>
+        <div class="row">
+        <button (click)='tasksFromService()'>Get Tasks</button>
+      </div>
+      </div>
+      <div class="col-sm-6">
+        <form *ngIf='!isEmpty(focusedTask)' (submit)="updateTask(focusedTask._id)">
+          <h4>Details:</h4>
+          <p>Created at: {{focusedTask.created_at}}</p>
+          <label>Description
+            <hr>
+            <textarea class="max_width" name="focusedTask.description" [(ngModel)]="focusedTask.description"></textarea>
+          </label>
+          <br>
+          <label>
+            Completed: <input [checked]='focusedTask.completed' type="radio" (change)="focusedTask.completed = !focusedTask.completed">
+          </label>
+          <hr>
+          <input type="submit" name="updateTask">
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
