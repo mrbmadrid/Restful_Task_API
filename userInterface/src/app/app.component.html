@@ -1,9 +1,19 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div>
   <h3>Current Tasks</h3>
+  <button (click)='tasksFromService()'>
+    Get Tasks
+  </button>
   <div *ngFor='let task of tasks'>
     <h4>{{task.title}}</h4>
-    Because: {{task.description}}
+    <button (click)='focusTask(task._id)'>
+      Get Details
+    </button>
   </div>
+  <ul *ngIf='!isEmpty(focusedTask)'>
+    <li>Description: {{focusedTask.description}}</li>
+    <li>Created at: {{focusedTask.created_at}}</li>
+    <li>Completed: <span *ngIf='focusedTask.completed'>Yes</span><span *ngIf='!focusedTask.completed'>No</span></li>
+  </ul>
 </div>
 

@@ -10,13 +10,13 @@ import { HttpService } from './http.service';
 export class AppComponent {
   title = 'app';
   tasks = [];
+  focusedTask = {};
 
   constructor(private _httpService: HttpService){
 
   }
 
   ngOnInit(){
-  	this.tasksFromService();
   }
 
   tasksFromService(){
@@ -26,4 +26,20 @@ export class AppComponent {
   		this.tasks = data['tasks'];
   	})
   }
+
+  focusTask(id){
+  	for(let task of this.tasks){
+  		if(task._id == id){
+  			this.focusedTask = task;
+  		}
+  	}
+  }
+
+  isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
 }
