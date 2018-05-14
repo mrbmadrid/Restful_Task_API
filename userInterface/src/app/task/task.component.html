@@ -1,0 +1,14 @@
+
+  <h4>Details:</h4>
+  <p>Created at: {{taskToShow.created_at}}</p>
+  <label>Description
+    <hr>
+    <textarea class="max_width" name="taskToShow.description" [(ngModel)]="taskToShow.description"></textarea>
+  </label>
+  <br>
+  <label>
+    Completed: <input [checked]='taskToShow.completed' type="radio" (change)="taskToShow.completed = !taskToShow.completed">
+  </label>
+  <hr>
+  <button (click)='updateTask()'>Update</button>
+

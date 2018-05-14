@@ -55,8 +55,9 @@ export class AppComponent {
   	})
   }
 
-  updateTask(id){
-  	let observable = this._httpService.updateTask(id, this.focusedTask);
+  updateTask(){
+    console.log(this.focusedTask)
+  	let observable = this._httpService.updateTask(this.focusedTask._id, this.focusedTask);
   	observable.subscribe(data =>{
   		console.log(data);
   		this.tasksFromService();

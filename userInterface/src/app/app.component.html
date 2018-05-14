@@ -39,20 +39,7 @@
       </div>
       </div>
       <div class="col-sm-6">
-        <form *ngIf='!isEmpty(focusedTask)' (submit)="updateTask(focusedTask._id)">
-          <h4>Details:</h4>
-          <p>Created at: {{focusedTask.created_at}}</p>
-          <label>Description
-            <hr>
-            <textarea class="max_width" name="focusedTask.description" [(ngModel)]="focusedTask.description"></textarea>
-          </label>
-          <br>
-          <label>
-            Completed: <input [checked]='focusedTask.completed' type="radio" (change)="focusedTask.completed = !focusedTask.completed">
-          </label>
-          <hr>
-          <input type="submit" name="updateTask">
-        </form>
+        <app-task *ngIf='!isEmpty(focusedTask)' [taskToShow]='focusedTask' (taskNeedsUpdate)="updateTask(focusedTask_id)"></app-task>
       </div>
     </div>
   </div>
